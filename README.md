@@ -1,10 +1,10 @@
 # Poliglot for VS Code
 
-In-editor support for [Poliglot](https://poliglot.io) matrix specs — diagnostics, hover, go-to-definition, and completion for `.ttl` and `.rq` files.
+In-editor support for authoring [Poliglot](https://poliglot.io) matrices — diagnostics, hover, go-to-definition, and completion for the Turtle (`.ttl`) and SPARQL (`.rq`) files that define a matrix.
 
-This extension is a thin Language Server Protocol client. All language intelligence lives in the [`plgt`](https://github.com/poliglot-io/plgt-cli) CLI's `plgt lsp` server, which the extension launches on activation.
+A *matrix* is a composable specification of your operating model — its capabilities, policies, and rules. This extension is a thin Language Server Protocol client; all language intelligence lives in the [`plgt`](https://github.com/poliglot-io/plgt-cli) CLI's `plgt lsp` server, which the extension launches on activation.
 
-Status: **alpha**. The Poliglot platform is in private beta.
+Status: **alpha**. Poliglot is in private beta.
 
 ## What you get
 
