@@ -43,12 +43,7 @@ export function activate(context: ExtensionContext): void {
     },
   };
 
-  client = new LanguageClient(
-    "plgt",
-    "Poliglot",
-    serverOptions,
-    clientOptions,
-  );
+  client = new LanguageClient("plgt", "Poliglot", serverOptions, clientOptions);
 
   client.start();
   context.subscriptions.push({
