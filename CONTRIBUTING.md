@@ -14,6 +14,8 @@ npm run lint
 npm run package            # build a local .vsix
 ```
 
+`npm install` also installs a pre-commit hook (via [husky](https://typicode.github.io/husky/) + [lint-staged](https://github.com/lint-staged/lint-staged)) that runs `eslint --fix` and `prettier --write` on staged TypeScript/JSON files before each commit.
+
 To install the locally built extension:
 
 ```bash
