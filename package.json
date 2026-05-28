@@ -1,0 +1,105 @@
+{
+  "name": "plgt",
+  "displayName": "Poliglot",
+  "description": "Language support for Poliglot matrix specs: in-editor validation, hover, go-to-definition, and completion for .ttl and .rq files.",
+  "version": "0.1.0-beta.2",
+  "publisher": "poliglot",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poliglot-io/plgt-vscode.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters"
+  ],
+  "activationEvents": [
+    "onLanguage:turtle",
+    "onLanguage:sparql",
+    "workspaceContains:**/poliglot.yml"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "turtle",
+        "extensions": [
+          ".ttl"
+        ],
+        "aliases": [
+          "Turtle",
+          "TTL"
+        ],
+        "configuration": "./language-configuration/turtle.json"
+      },
+      {
+        "id": "sparql",
+        "extensions": [
+          ".rq"
+        ],
+        "aliases": [
+          "SPARQL"
+        ],
+        "configuration": "./language-configuration/sparql.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "turtle",
+        "scopeName": "source.turtle",
+        "path": "./syntaxes/turtle.tmLanguage.json"
+      },
+      {
+        "language": "sparql",
+        "scopeName": "source.sparql",
+        "path": "./syntaxes/sparql.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "title": "Poliglot",
+      "properties": {
+        "plgt.serverCommand": {
+          "type": "string",
+          "default": "plgt",
+          "scope": "machine",
+          "description": "Command used to launch the Poliglot CLI. Must be on PATH. The extension invokes `<serverCommand> lsp`. Machine-scoped so a committed workspace `.vscode/settings.json` cannot point this at an arbitrary binary."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run bundle",
+    "compile": "tsc -p ./ --noEmit",
+    "bundle": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "typecheck": "tsc -p ./ --noEmit",
+    "package": "npm run bundle && vsce package --no-dependencies --out ./poliglot-latest.vsix",
+    "install:local": "npm run package && code --install-extension ./poliglot-latest.vsix --force",
+    "lint": "eslint . && prettier --check \"src/**/*.{ts,json}\"",
+    "lint:fix": "eslint . --fix && prettier --write \"src/**/*.{ts,json}\""
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.0.0",
+    "esbuild": "^0.28.0",
+    "typescript": "^5.0.0",
+    "eslint": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "typescript-eslint": "^8.0.0",
+    "@eslint/js": "^9.0.0",
+    "prettier": "^3.0.0"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.0"
+  },
+  "homepage": "https://github.com/poliglot-io/plgt-vscode",
+  "bugs": {
+    "url": "https://github.com/poliglot-io/plgt-vscode/issues"
+  },
+  "author": "Poliglot Inc."
+}

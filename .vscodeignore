@@ -1,0 +1,18 @@
+# Exclude the entire workspace tree by default; opt back in to just the
+# bundled extension entry and the metadata files VS Code needs.
+**
+
+# Re-include the metadata + bundle + content the marketplace expects:
+!package.json
+!README.md
+!LICENSE
+!NOTICE
+!CHANGELOG.md
+!out/extension.js
+!out/extension.js.map
+!syntaxes/
+!syntaxes/turtle.tmLanguage.json
+!syntaxes/sparql.tmLanguage.json
+!language-configuration/
+!language-configuration/turtle.json
+!language-configuration/sparql.json
