@@ -47,7 +47,9 @@ jobs:
           fi
 
       - name: Package (.vsix)
-        run: npm run package
+        run: |
+          npm run bundle
+          npx @vscode/vsce package --pre-release --no-dependencies --out ./poliglot-latest.vsix
 
       - name: Publish to Marketplace
         run: npx @vscode/vsce publish --pre-release --packagePath ./poliglot-latest.vsix --pat "$VSCE_PAT"
