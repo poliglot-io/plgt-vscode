@@ -50,6 +50,6 @@ jobs:
         run: npm run package
 
       - name: Publish to Marketplace
-        run: npx @vscode/vsce publish --packagePath ./poliglot-latest.vsix --pat "$VSCE_PAT"
+        run: npx @vscode/vsce publish --pre-release --packagePath ./poliglot-latest.vsix --pat "$VSCE_PAT"
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
