@@ -1,0 +1,81 @@
+---
+title: VS Code
+description: Install and configure the plgt extension for VS Code.
+---
+
+The **plgt** extension (`poliglot.plgt`) is a thin LSP client. It
+launches `plgt lsp` over stdio and registers it as the language server
+for `.ttl` (Turtle) and `.rq` (SPARQL) files. All diagnostics, hover,
+definition, and completion come from the server.
+
+## Install
+
+From inside VS Code, open the Extensions view (⌘⇧X / Ctrl+Shift+X),
+search for **plgt**, and click Install. Or install directly from the
+[Marketplace listing](https://marketplace.visualstudio.com/items?itemName=poliglot.plgt).
+
+From the command line:
+
+```bash
+code --install-extension poliglot.plgt
+```
+
+## Prerequisites
+
+- The `plgt` CLI must be installed and on `PATH`. The extension launches
+  `plgt lsp` as its server. See [Install plgt](/docs/install).
+- A matrix project at the workspace root (a directory containing
+  `poliglot.yml`) with dependencies installed via `plgt install`.
+
+## Features
+
+| Feature          | Description                                                                                                                                                                                                                                       |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Diagnostics      | Validates `.ttl` and `.rq` files with the same checks as `plgt validate`: predicate hallucination, namespace violations, dangling cross-references, SHACL violations, `script://` resolution errors. Runs on open and save with a short debounce. |
+| Hover            | Over a prefixed name (e.g. `ex:Thing`), shows `rdfs:label`, definition, declared types, `subClassOf` chain, and the file the term is defined in.                                                                                                  |
+| Go to definition | Jumps to the file and line where the term is declared. Author-owned matrices win over the dependency cache when both define the term.                                                                                                             |
+| Completion       | Triggered by `:`. Lists every term in the namespace bound to the prefix immediately to the left of the cursor. For `.rq` files, prefix bindings come from the enclosing `matrix.ttl`.                                                             |
+| Formatting       | Whole-document format for `.ttl` and `.rq` using the `plgt` Turtle and SPARQL formatters. Range formatting reformats the full document (same model as `prettier`, `black`, and `ruff format`).                                                    |
+
+## Configuration
+
+The extension contributes one setting:
+
+| Setting              | Type   | Default | Scope   | Description                                                                                                                                                                                                        |
+| -------------------- | ------ | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `plgt.serverCommand` | string | `plgt`  | machine | Command used to launch the Poliglot CLI. Must be on `PATH`. The extension invokes `<serverCommand> lsp`. Machine-scoped so a committed workspace `.vscode/settings.json` cannot point this at an arbitrary binary. |
+
+Example `settings.json` override (useful when `plgt` is installed under
+a non-default name or path):
+
+```json
+{
+  "plgt.serverCommand": "/Users/me/.local/bin/plgt"
+}
+```
+
+## Activation
+
+The extension activates when any of the following are true in the open
+workspace:
+
+- A file with language id `turtle` is opened (`.ttl`).
+- A file with language id `sparql` is opened (`.rq`).
+- The workspace contains a `poliglot.yml` (matched by
+  `workspaceContains:**/poliglot.yml`).
+
+## Commands
+
+The extension does not contribute any user-facing commands. Everything
+is driven by the language server over standard LSP requests.
+
+## File watchers
+
+The client watches `**/poliglot.yml` and `**/.matrix/deps/*.lock` and
+forwards change events to the server so validation re-runs when
+dependencies change.
+
+## Troubleshooting
+
+See [Troubleshooting](/docs/ide/troubleshooting) for common issues
+(`plgt: command not found`, missing completions, stale diagnostics).
