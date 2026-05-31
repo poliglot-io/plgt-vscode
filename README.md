@@ -24,39 +24,20 @@ Status: **alpha**. Poliglot is in private beta.
 | --- | --- | --- |
 | `plgt.serverCommand` | `plgt` | Command used to launch the CLI. Set if the binary isn't named `plgt` or isn't on `PATH`. The extension invokes `<command> lsp`. Machine-scoped so a committed workspace `.vscode/settings.json` cannot point this at an arbitrary binary. |
 
-## Building from source
-
-```sh
-npm install
-npm run bundle             # esbuild bundle
-npm run package            # produces a .vsix
-```
-
-Install the resulting `.vsix` via the VS Code "Install from VSIX..." command in the Extensions view.
-
-## Development
-
-```sh
-npm install
-npm run watch              # esbuild --watch
-npm run typecheck          # tsc --noEmit
-npm run lint
-```
-
 ## JetBrains and other editors
 
 JetBrains IDEs (IntelliJ IDEA, PyCharm, GoLand, etc.) support LSP through the official LSP plugin. Point it at `plgt lsp` and register `.ttl` / `.rq` as the file types. A first-class JetBrains plugin is future work.
 
 ## Documentation
 
-- IDE reference: <https://poliglot.io/docs/ide/vscode>
-- Full docs: <https://poliglot.io/docs>
+- [VS Code extension reference](https://poliglot.io/docs/ide/vscode)
+- [Full Poliglot docs](https://poliglot.io/docs)
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). All contributors must sign the [Poliglot Contributor License Agreement](https://poliglot.io/cla) before their first PR is merged.
+Local setup, build commands, and the PR workflow live in [CONTRIBUTING.md](CONTRIBUTING.md). All contributors must sign the [Poliglot Contributor License Agreement](https://poliglot.io/cla) before their first PR is merged.
 
-Bugs and feature requests go through GitHub Issues; security issues use [private security advisories](https://github.com/poliglot-io/plgt-vscode/security/advisories/new) — see [SECURITY.md](SECURITY.md).
+Bugs and feature requests: GitHub Issues. Security issues: [private security advisories](https://github.com/poliglot-io/plgt-vscode/security/advisories/new) (see [SECURITY.md](SECURITY.md)).
 
 ## License
 
